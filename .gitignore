@@ -1,0 +1,8 @@
+# Project exclude paths
+/.gradle/
+/config-server/out/
+/config-server/out/production/classes/
+/eureka-server/out/
+/eureka-server/out/production/classes/
+/gateway-server/out/
+/gateway-server/out/production/classes/

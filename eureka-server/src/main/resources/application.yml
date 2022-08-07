@@ -1,0 +1,32 @@
+server:
+  port: 8761
+  shutdown: graceful
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  application:
+    name: eureka-server
+
+# https://subji.github.io/posts/2020/08/11/springcloudeurekaregistry
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false #eureka server를 registry에 등록할지 여부
+    fetch-registry: false       #registry에 있는 정보들을 가져올지 여부
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    wait-time-in-ms-when-sync-empty: 0
+    response-cache-update-interval-ms: 5000
+    enable-self-preservation: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+

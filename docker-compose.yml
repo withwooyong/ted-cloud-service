@@ -1,0 +1,24 @@
+version: '2.1'
+
+services:
+  eureka-server:
+    build: eureka-server
+    mem_limit: 350m
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - "8761:8761"
+  gateway-server:
+    build: gateway-server
+    mem_limit: 350m
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - "8080:8080"
+  config-server:
+    build: config-server
+    mem_limit: 350m
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - "8090:8090"

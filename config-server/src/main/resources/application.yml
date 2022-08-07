@@ -1,0 +1,24 @@
+server:
+  port: 8090
+  shutdown: graceful
+  error:
+    whitelabel:
+      enabled: false
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/withwooyong/spring-cloud-config-repository
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka #Eureka Server 명시

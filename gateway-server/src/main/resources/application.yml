@@ -1,0 +1,67 @@
+server:
+  port: 8080
+  shutdown: graceful
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+#  main:
+#    web-application-type: REACTIVE
+  application:
+    name: gateway-server
+  cloud:
+    config:
+      enabled: false
+    gateway:
+      default-filters:
+        - name: LoggingFilter
+          args:
+            #            baseMessage: Spring Cloud Gateway Global Filter
+            preLogger: true
+            postLogger: true
+      httpclient:
+        wiretap: true
+      routes:
+        - id: api-user
+          uri: http://localhost:8081/user
+          predicates:
+            - Path=/user/**
+        - id: api-auth
+          uri: http://localhost:8082/auth
+          predicates:
+            - Path=/auth/**
+        #          filters:
+        #            - name: LoggingFilter
+        #              args:
+        #                preLogger: true
+        #                postLogger: true
+        - id: api-order
+          uri: http://localhost:8091/order
+          predicates:
+            - Path=/order/**
+        - id: api-pay
+          uri: http://localhost:8092
+          predicates:
+            - Path=/pay/**
+    jackson:
+      serialization:
+        INDENT_OUTPUT: true
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+logging:
+  level:
+    com.ted.cloud: INFO
+    org.springframework.cloud.gateway: INFO
+    org.springframework.http.server.reactive: INFO
+    org.springframework.web.reactive: INFO
+    reactor.ipc.netty: INFO
+    reactor.netty: INFO
+
+#management.endpoints.web.exposure.include: '*'
+
